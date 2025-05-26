@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invitación Cumpleaños</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background-color: #fff8e1;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .sobre-container {
+      position: relative;
+      width: 350px;
+      margin: 40px auto 20px;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .solapa {
+      width: 100%;
+      height: 0;
+      padding-bottom: 70px;
+      background-color: #fff;
+      border: 3px solid #000;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      transition: transform 0.6s ease;
+      transform-origin: top center;
+    }
+
+    .solapa.abierta {
+      transform: rotateX(180deg);
+    }
+
+    .sobre-cuerpo {
+      width: 100%;
+      height: 200px;
+      background-color: #f5f5f5;
+      border: 3px solid #000;
+      border-radius: 8px;
+      z-index: 1;
+      position: relative;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contenido {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      background-color: #ffe0b2;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 40px;
+      animation: aparecer 0.8s ease-out forwards;
+    }
+
+    @keyframes aparecer {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .abrir-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .contenido img {
+      width: 150px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      font-family: 'Brush Script MT', cursive; /* Cambiamos la fuente aquí */
+      color: #6d4c41;
+      margin-top: 15px;
+    }
+
+    .confetti-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .confetti {
+      position: absolute;
+      background-color: #fff;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: confetti-fall 2s ease-out forwards;
+    }
+
+    .confetti.negro {
+      background-color: #000;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        opacity: 1;
+        transform: translateY(-50px) translateX(var(--random-x)) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(250px) translateX(var(--random-x)) rotate(720deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sobre-container" id="sobre">
+    <div class="solapa" id="solapa"></div>
+    <div class="sobre-cuerpo">
+      <h2>Maria Lourdes Traña e Hija</h2>
+      <div class="confetti-container" id="confettiContainer"></div>
+    </div>
+  </div>
+
+  <button class="abrir-button" id="abrirBtn">Abrir</button>
+
+  <section class="contenido" id="contenido">
+    <h1 style="color: red;">¡Muuucha atención, Maria Lourdes!</h1>
+    <h2>¡Amely Franlieth cumple 1 añito!</h2>
+    <img src="https://media-hosting.imagekit.io/97ec68e61f9047a9/Cara%20De%20Vaca.jpeg?Expires=1840807218&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=MWGWZGFSEbFkDIkmyProZa5hdXHS2brJj1rHPj1ll3odu-ezopxVbdQngq~HggOGH2~5nnxk0SjYalL08ERZ5mLGzGYvlIApAugk7aE3ar4y8A~-wCYy4gX0tVbfNLabEdkDS20ghzz9UGKwP4dJWNiK0jKFxuyJy9pDumhMSlhRCl~siOApEsVHcV-sx80Wih7cFERWkvzmMwJUQ~xVYucIqvIXmBMpFCCLo-IR-qafW42DZYdLIh9RpuvA4ulKYE8p1IA-rU4v3LGVSYLxMTNob4OwVxRS2EB4ZmWxI5HTCe3kvlzJMniMtLi9gshTb59uySwrwXL3LxbJL2QJMg__" alt="Vaca Lola">
+    <p>Amely y la Vaca Lola te invitan a una fiesta llena de ternura, juegos y sorpresas.</p>
+    <p><strong>Fecha:</strong> 28 de mayo de 2025</p>
+    <p><strong>Hora:</strong> 3:30 de la tarde</p>
+    <p><strong>Lugar:</strong> Sabana Larga, casa de mis abuelitos</p>
+  <p><strong>Te esperamos no faltes</strong></p>
+    <div class="footer">
+      Invitan con amor:<br> Fragner Martínez y Amy Bravo Arce
+    </div>
+  </section>
+
+  <script>
+    const btn = document.getElementById('abrirBtn');
+    const sobre = document.getElementById('sobre');
+    const solapa = document.getElementById('solapa');
+    const contenido = document.getElementById('contenido');
+    const confettiContainer = document.getElementById('confettiContainer');
+    let sobreAbierto = false;
+
+    btn.addEventListener('click', () => {
+      if (!sobreAbierto) {
+        sobreAbierto = true;
+        solapa.classList.add('abierta');
+        setTimeout(() => {
+          sobre.style.opacity = '0';
+          btn.style.display = 'none';
+        }, 600);
+
+        setTimeout(() => {
+          sobre.style.display = 'none';
+          contenido.style.display = 'block';
+        }, 1000);
+
+        const numConfetti = 100;
+        for (let i = 0; i < numConfetti; i++) {
+          const confetti = document.createElement('div');
+          confetti.classList.add('confetti');
+          if (Math.random() < 0.5) confetti.classList.add('negro');
+          confetti.style.setProperty('--random-x', `${Math.random() * 300 - 150}px`);
+          confetti.style.left = `${Math.random() * 100}%`;
+          confettiContainer.appendChild(confetti);
+        }
+
+        setTimeout(() => {
+          confettiContainer.innerHTML = '';
+        }, 2000);
+      }
+    });
+  </script>
+
+</body>
+</html>
